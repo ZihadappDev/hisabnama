@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>হিসেবনামা</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="hisabnama.css">
+</head>
+<body>
+
+<header class="top">
+  <button id="menu" aria-label="menu">☰</button>
+  <h1 data-i="app">হিসেবনামা</h1>
+</header>
+
+<div id="ov" hidden></div>
+<nav id="side">
+  <h2 data-i="menu">মেনু</h2>
+  <button data-v="home" data-i="nHome">🏠 হোম</button>
+  <button data-v="history" data-i="nHist">🕘 হিস্ট্রি</button>
+  <button data-v="archive" data-i="nArch">🗂 আর্কাইভ</button>
+  <button data-v="backup" data-i="nBak">💾 ব্যাকাপ</button>
+  <button data-v="help" data-i="nHelp">❓ হেল্প</button>
+  <button data-v="contact" data-i="nContact">✉️ কন্টাক্ট আস</button>
+  <button data-v="about" data-i="nAbout">ℹ️ এবাউট</button>
+  <button data-v="settings" data-i="nSet">⚙️ সেটিংস</button>
+</nav>
+
+<main>
+  <section id="v-home" class="view on">
+    <div class="card sum">
+      <div><small id="mL"></small><b id="mT"></b></div>
+      <div><small data-i="life">লাইফটাইম খরচ</small><b id="lT"></b></div>
+    </div>
+    <button class="p" id="tog" data-i="addNew">+ নতুন খরচ যোগ করুন</button>
+    <form id="f" class="card" hidden>
+      <div class="row">
+        <select id="cat"></select>
+        <input id="ti" data-p="ph1" required maxlength="80">
+      </div>
+      <input id="am" type="number" min="0.01" step="any" inputmode="decimal" data-p="ph2" required>
+      <button class="p" id="sb" data-i="addBtn">সংরক্ষণ করুন</button>
+    </form>
+    <div class="card">
+      <h3 data-i="curM">চলতি মাসের খরচা</h3>
+      <div class="scroll" id="hl"></div>
+      <div class="acts">
+        <button class="p sm" id="dl" data-i="dlPdf">⬇ ডাউনলোড (PDF)</button>
+        <button class="g sm" id="hb">History</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="hd"><h3 data-i="catT">খাত অনুযায়ী সামারি</h3><button class="p sm" id="cd" data-i="dlSum">⬇ সামারি PDF</button></div>
+      <div class="flt">
+        <select id="sm"><option value="m" data-i="byM">মাস ভিত্তিক</option><option value="y" data-i="byY">সাল ভিত্তিক</option><option value="a" data-i="byA">লাইফটাইম</option></select>
+        <input id="smo" type="month"><select id="sy"></select>
+      </div>
+      <div id="cats"></div>
+    </div>
+  </section>
+
+  <section id="v-history" class="view">
+    <div class="card stack">
+      <h3 data-i="histT">খরচের ইতিহাস</h3>
+      <select id="hm"><option value="m" data-i="byM">মাস ভিত্তিক</option><option value="y" data-i="byY">সাল ভিত্তিক</option><option value="a" data-i="byA">লাইফটাইম</option></select>
+      <input id="hmo" type="month">
+      <select id="hy"></select>
+      <div><small id="hs"></small><b class="big" id="ht"></b></div>
+      <button class="p" id="hd" data-i="hdl">⬇ PDF ডাউনলোড (A4)</button>
+    </div>
+    <div class="card"><div class="scroll tall" id="hlist"></div></div>
+  </section>
+
+  <section id="v-archive" class="view">
+    <div class="card">
+      <h3 data-i="nArch2">আর্কাইভ</h3>
+      <p class="note" data-i="archN">মুছে ফেলা খরচ ৩০ দিন এখানে থাকে, তারপর নিজে থেকেই মুছে যায়।</p>
+      <div class="scroll tall" id="al"></div>
+      <button class="p" id="rs" style="margin-top:12px;width:100%" data-i="restore">নির্বাচিতগুলো রিস্টোর করুন</button>
+    </div>
+  </section>
+
+  <section id="v-backup" class="view">
+    <div class="card stack">
+      <h3 data-i="bakT">ব্যাকাপ ও রিস্টোর</h3>
+      <button class="p" id="bk" data-i="bkBtn">JSON ব্যাকাপ ডাউনলোড</button>
+      <button class="g" id="ri" data-i="riBtn">ব্যাকাপ ফাইল যুক্ত করুন</button>
+      <input id="rf" type="file" accept=".json,application/json" hidden>
+      <small data-i="bakN">ব্যাকাপে আর্কাইভসহ সব ডেটা থাকে। ফাইল যুক্ত করলে বর্তমান ডেটার সাথে মিশে যায়, কিছু মুছে যায় না।</small>
+    </div>
+  </section>
+
+  <section id="v-help" class="view">
+    <div class="card"><h3 data-i="helpT">ব্যবহারের গাইডলাইন</h3><div id="hp"></div></div>
+  </section>
+
+  <section id="v-about" class="view">
+    <div class="card">
+      <h3 data-i="aboutT">হিসেবনামা সম্পর্কে</h3>
+      <p data-i="aboutP">প্রতিদিনের ছোট ছোট খরচ সহজে লিখে রাখা এবং মাস শেষে টাকা কোথায় গেল তা বোঝার জন্য এই অ্যাপ। সব ডেটা আপনার ব্রাউজারেই থাকে, ইন্টারনেট ছাড়াই চলে।</p>
+      <p style="margin-top:8px" data-i="madeBy">তৈরি করেছেন: আব্দুল্লাহ আল জিহাদ</p>
+    </div>
+  </section>
+
+  <section id="v-contact" class="view">
+    <form id="cf" class="card stack">
+      <h3 data-i="conT">যোগাযোগ করুন</h3>
+      <input id="cn" data-p="phN" required>
+      <input id="ce" type="email" data-p="phE">
+      <textarea id="cm" rows="5" data-p="phM" required></textarea>
+      <button class="p" id="cs" data-i="send">পাঠান</button>
+      <small id="cmsg"></small>
+    </form>
+  </section>
+
+  <section id="v-settings" class="view">
+    <div class="card stack">
+      <h3 data-i="nSet2">সেটিংস</h3>
+      <div><small data-i="thm">থিম কালার</small><div class="sw" id="sw"></div></div>
+      <label class="chk"><input type="checkbox" id="dk"> <span data-i="dark">ডার্ক মোড</span></label>
+      <div><small data-i="lang">ভাষা</small>
+        <select id="lg"><option value="bn">বাংলা</option><option value="en">English</option></select></div>
+      <button class="g" id="er" data-i="erase">🗑 Erase All Data</button>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <h3 data-i="app">হিসেবনামা</h3>
+  <p data-i="footP">নিজের আয়ের টাকা কোথায় যাচ্ছে তা পরিষ্কার দেখতে এবং অপ্রয়োজনীয় খরচ কমাতে এই অ্যাপটি তৈরি করা হয়েছে।</p>
+  <small class="dev">Developed By Abdullah Al Zihad ❤️</small>
+</footer>
+
+<div id="md" hidden>
+  <div class="box">
+    <p id="mp"></p>
+    <div class="mb"><button class="g" id="mn"></button><button class="p" id="my"></button></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="hisabnama.js"></script>
+</body>
+</html>
